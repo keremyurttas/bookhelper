@@ -14,7 +14,12 @@ datasource db {
 
 model Word {
   id        Int @id @default(autoincrement())
-  name      String @unique
+  word      String
   meaning   String
   createdAt DateTime @default(now())
+  example   String?
+  note      String?
+  updatedAt DateTime @updatedAt
+
+  @@unique([word])
 }

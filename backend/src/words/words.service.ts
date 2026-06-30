@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWordDto } from './dto/create-word.dto';
 import { UpdateWordDto } from './dto/update-word.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class WordsService {
+  constructor(private readonly prisma: PrismaService) { }
   create(createWordDto: CreateWordDto) {
-    return 'This action adds a new word';
+    return this.create(createWordDto);
   }
 
   findAll() {
-    return `This action returns all words`;
+    return this.prisma.word.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} word`;
+    return this.findOne(id);
   }
 
   update(id: number, updateWordDto: UpdateWordDto) {
-    return `This action updates a #${id} word`;
+    return this.update(id, updateWordDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} word`;
+    return this.remove(id);
   }
 }
